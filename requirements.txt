@@ -1,0 +1,4 @@
+aiogram
+django
+psycopg2-binary
+python-dotenv
