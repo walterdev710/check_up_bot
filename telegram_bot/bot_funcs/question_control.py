@@ -44,12 +44,12 @@ async def finish_test(message: Message, state: FSMContext, bot:Bot):
 
 
     risk_message = (
-        f"📝 Тест тугади!\n\n"
-        f"{get_category_risk_message(category, total_score)}\n\n"
-        f"👉 Javohir Medical Centre'га мурожаат қилишингиз мумкин:\n"
-        f"📞 <a href='tel:+998554030666'>554030666</a>\n"
-        f"📞 <a href='tel:+998554020666'>554020666</a>\n\n"
-        f"🔗 <a href='https://javohirmedical.com/check-up/'>Батафсил маълумот</a>"
+    f"📝 Тест тугади!\n\n"
+    f"<b>{get_category_risk_message(category, total_score)}</b>\n\n"
+    f"👉 Javohir Medical Centre'га мурожаат қилишингиз мумкин:\n"
+    f"📞 <a href='tel:+998554030666'>+998554030666</a>\n"
+    f"📞 <a href='tel:+998554020666'>+998554020666</a>\n\n"
+    f"🔗 <a href='https://javohirmedical.com/check-up/'>Батафсил маълумот</a>"
     )
 
 
@@ -66,7 +66,7 @@ async def finish_test(message: Message, state: FSMContext, bot:Bot):
         # If no cached file_id, upload the photo
         current_dir = os.path.dirname(os.path.abspath(__file__))
         photo_path = os.path.join(current_dir, "photos", "logo.jpg")
-        msg = await bot.send_photo(message.chat.id, photo=FSInputFile(photo_path), caption=risk_message, parse_mode="HTML")
+        msg = await bot.send_photo(message.chat.id, photo=FSInputFile(photo_path), caption=risk_message, parse_mode=types.ParseMode.HTML)
 
         # Save new file_id for future use
         new_file_id = msg.photo[-1].file_id
