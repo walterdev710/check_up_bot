@@ -122,8 +122,8 @@ async def process_start_test(callback:CallbackQuery, state:FSMContext):
 
     await sync_to_async(user_test.refresh_from_db)()
 
-
-    await callback.message.edit_reply_markup(reply_markup=None)
+    if callback.message.reply_markup:
+        await callback.message.edit_reply_markup(reply_markup=None)
 
     await state.update_data(
         questions=questions,
