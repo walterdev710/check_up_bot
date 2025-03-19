@@ -120,6 +120,9 @@ async def process_start_test(callback:CallbackQuery, state:FSMContext):
         user=user, test_name=category, defaults={"status": "jarayonda", "score": 0}
     )
 
+    await sync_to_async(user_test.refresh_from_db)()
+
+
     await callback.message.edit_reply_markup(reply_markup=None)
 
     await state.update_data(
@@ -142,10 +145,16 @@ async def handler_answer(callback:CallbackQuery, state:FSMContext):
     data = await state.get_data()
     current_score = data["score"]
     index = data["index"]
+    category = data["category"]
 
+    special_scoring = {
+        "Yosh Oila":{5:10},
+    }
+
+    points =special_scoring.get(category,{}).get(index,1)*score
 
     await state.update_data(
-        score = current_score + score,
+        score = current_score + points,
         index = index+1
     )
 

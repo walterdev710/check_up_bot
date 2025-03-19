@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.shortcuts import redirect
 
 admin.site.site_header = "Javohir Medical Centre Check Up Bot Admin Panel"
 admin.site.site_title = "Admin Dashboard"
 admin.site.index_title = "Check Up bot Admin Paneliga Xush Kelibsiz!"
 
 urlpatterns = [
+    path("", lambda request:redirect("admin/", permanent=True)),
     path('admin/', admin.site.urls),
 ]
