@@ -113,12 +113,20 @@ async def process_start_test(callback:CallbackQuery, state:FSMContext):
     data = await state.get_data()
     user_id = data.get("user_id")
 
-    questions = await sync_to_async(list)(TestQuestion.objects.filter(category=category))
 
     user = await sync_to_async(Patient.objects.get)(user_id=user_id)
+
+
+
+
+    questions = await sync_to_async(list)(TestQuestion.objects.filter(category=category))
+
+
     user_test, _ = await sync_to_async(UserTest.objects.get_or_create)(
         user=user, test_name=category, defaults={"status": "jarayonda", "score": 0}
     )
+
+    
 
     await sync_to_async(user_test.refresh_from_db)()
 
